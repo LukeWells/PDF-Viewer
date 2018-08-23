@@ -1,0 +1,7 @@
+{
+  "name": "PDF-Viewer",
+  "description": "Grabs pdfs from folder and converts to HTML webpage",
+  "require": {
+    "cloudconvert/cloudconvert-php": "2.2.*"
+  }
+}
