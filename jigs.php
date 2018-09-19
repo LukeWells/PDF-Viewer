@@ -12,25 +12,6 @@
 		ini_set('display_errors', TRUE);
 			
 		require 'api.php';
-		
-		$jigPath = "D:/jigFolder/";
-		$dir = new DirectoryIterator($jigPath);
-		
-		//run conversion and display on this page.
-		foreach ($dir as $fileinfo) {
-			if (!$fileinfo->isDot()) {
-				$jigList = $fileinfo->getFilename();
-				// if(file doesn't already exist) {}
-				try {
-					$api->convert([
-						"inputformat" => "pdf",
-						"outputformat" => "html",
-						"input" => "upload",
-						"converteroptions" => [
-							"page_width" => 924,
-							"page_height" => 668,
-						],
-						"file" => fopen($jigPath.$jigList, 'r'),])->wait()->download("D:/jigFolder/outputs/");
 
 		$folderName = $_GET['folderName'];
 		$poolId = $_GET['poolId'];
