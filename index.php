@@ -8,25 +8,39 @@
 </head>
 <body>
 	<?php
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
 
 	$jigPath = "D:/jigFolder/";
-
+	
 	$dir = new DirectoryIterator($jigPath);
 	foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {
 			$jigList = $fileinfo->getFilename();
 			$info = pathinfo($jigList);
-			$poolId = $info['filename'];
-
+			$folderName = $info['filename'];
+			$curPath = $jigPath.$folderName;
+			if (is_dir($curPath)) {
+				if ($dh = opendir($curPath)) {
+					while (($file = readdir($dh)) !== false) {
+						$poolId = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file); 
+					}
+					closedir($dh);
+				}
+			}
+			 
 			if($jigList != "outputs") {
-				echo "<a href='jigs.php?poolId=".$poolId."'>";
+			
+				echo "<a href='display.php?folderName=".$folderName."&amp;poolId=".$poolId."'>";
 				echo $jigList;
 				echo "</a>";
+			
 			}
 		}
 		echo "<br>";
 	}
-
+	
     ?>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
