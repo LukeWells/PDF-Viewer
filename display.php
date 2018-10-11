@@ -14,7 +14,6 @@
 	error_reporting(E_ALL);
 
 	$folderName = $_GET['folderName'];
-	$poolId = $_GET['poolId'];
 
 	$jigPath = "D:/jigFolder/".$folderName;
 
@@ -23,7 +22,14 @@
 		if (!$fileinfo->isDot()) {
 			$jigList = $fileinfo->getFilename();
 			$info = pathinfo($jigList);
-			 
+			if (is_dir($curPath)) {
+				if ($dh = opendir($curPath)) {
+					while (($file = readdir($dh)) !== false) {
+						$poolId = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file); 
+					}
+					closedir($dh);
+				}
+			}
 			if($jigList != "outputs") {
 			
 				echo "<a class='btn btn-default btn-lg' href='jigs.php?folderName=".$folderName."&amp;poolId=".$poolId."'>";
