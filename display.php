@@ -16,30 +16,32 @@
 	$folderName = $_GET['folderName'];
 
 	$jigPath = "D:/jigFolder/".$folderName;
+	$poolArray = array();
 
 	$dir = new DirectoryIterator($jigPath);
 	foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {
 			$jigList = $fileinfo->getFilename();
 			$info = pathinfo($jigList);
-			if (is_dir($curPath)) {
-				if ($dh = opendir($curPath)) {
+			if (is_dir($jigPath)) {
+				if ($dh = opendir($jigPath)) {
 					while (($file = readdir($dh)) !== false) {
-						$poolId = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file); 
+						$poolId = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file); //poolId is being set to the last always - need to set an array value.
 					}
 					closedir($dh);
 				}
+				$poolArray[] = $poolId;
 			}
-			if($jigList != "outputs") {
-			
-				echo "<a class='btn btn-default btn-lg' href='jigs.php?folderName=".$folderName."&amp;poolId=".$poolId."'>";
+			/*
+			foreach($poolArray as $pool) {
+				echo "<a class='btn btn-default btn-lg' href='jigs.php?folderName=".$folderName."&amp;poolId=".$pool."'>";
 				echo $jigList;
 				echo "</a><br/>";
-				
-			}
+			}*/
 		}
 		echo "<br>";
 	}
+	PRINT_R($poolArray);
     ?>
 	</div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

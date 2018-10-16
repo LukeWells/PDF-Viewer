@@ -25,19 +25,11 @@
 			$info = pathinfo($jigList);
 			$folderName = $info['filename'];
 			$curPath = $jigPath.$folderName;
-			if (is_dir($curPath)) {
-				if ($dh = opendir($curPath)) {
-					while (($file = readdir($dh)) !== false) {
-						$poolId = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file); 
-					}
-					closedir($dh);
-				}
-			}
 			 
 			if($jigList != "outputs") {
 				
 				echo "<tr><td>";
-				echo "<a class='btn btn-default btn-lg' href='display.php?folderName=".$folderName."&amp;poolId=".$poolId."'>";
+				echo "<a class='btn btn-default btn-lg' href='display.php?folderName=".$folderName."'>";
 				echo $jigList;
 				echo "</a></td><td>";
 				echo "&nbsp;".date('r',$modTime);
