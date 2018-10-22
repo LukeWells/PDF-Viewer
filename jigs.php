@@ -15,7 +15,7 @@
 	require 'api.php';
 
 	$folderName = $_GET['folderName'];
-	$poolId = $_GET['pool'];
+	$poolId = $_GET['poolId'];
 	
 	$jigPath = "D:/jigFolder/".$folderName."/";
 	$output_file = "D:/jigFolder/outputs/".$poolId.".html";
